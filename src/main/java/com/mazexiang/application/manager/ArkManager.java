@@ -34,7 +34,7 @@ import java.util.Map;
 public class ArkManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(ArkManager.class);
     private static final String ARKK_URL =
-            "https://ark-funds.com/wp-content/fundsiteliterature/csv/ARK_NEXT_GENERATION_INTERNET_ETF_ARKW_HOLDINGS.csv";
+            "https://ark-funds.com/wp-content/fundsiteliterature/csv/ARK_INNOVATION_ETF_ARKK_HOLDINGS.csv";
     private static final String ARKW_URL =
             "https://ark-funds.com/wp-content/fundsiteliterature/csv/ARK_NEXT_GENERATION_INTERNET_ETF_ARKW_HOLDINGS.csv";
     private static final String ARKQ_URL  =
@@ -62,18 +62,20 @@ public class ArkManager {
            LogUtil.info(LOGGER,"start download ",url);
            downloadFile(url);
        }
+       LogUtil.info(LOGGER,"download finish");
     }
 
     public  void downloadFile(String url){
-        InputStream inputStream = HttpUtil.geInputStream(url);
-        if (inputStream == null){
-            LogUtil.error(LOGGER,"数据下载失败in downloadFile",url);
-            return;
-        }
-        BufferedReader reader = new BufferedReader(
-                new InputStreamReader(inputStream));
-        String str = null;
         try {
+            InputStream inputStream = HttpUtil.geInputStream(url);
+            if (inputStream == null){
+                LogUtil.error(LOGGER,"数据下载失败in downloadFile",url);
+                return;
+            }
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(inputStream));
+            String str = null;
+
             // 提前读掉第一行
             reader.readLine();
             str =  reader.readLine();
@@ -117,7 +119,7 @@ public class ArkManager {
             }
             inputStream.close();
         }catch (Exception e   ){
-            LogUtil.error(LOGGER,e,str);
+            LogUtil.error(LOGGER,e);
         }
     }
 
