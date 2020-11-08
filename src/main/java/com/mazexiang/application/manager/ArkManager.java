@@ -4,6 +4,7 @@
  */
 package com.mazexiang.application.manager;
 
+import com.google.common.collect.Lists;
 import com.mazexiang.application.common.LogUtil;
 import com.mazexiang.application.common.HttpUtil;
 import com.mazexiang.application.common.StringUtil;
@@ -31,8 +32,21 @@ import java.util.List;
 @Service
 public class ArkManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(ArkManager.class);
-    private static final String arkkUrl =
+    private static final String ARKK_URL =
             "https://ark-funds.com/wp-content/fundsiteliterature/csv/ARK_NEXT_GENERATION_INTERNET_ETF_ARKW_HOLDINGS.csv";
+    private static final String ARKW_URL =
+            "https://ark-funds.com/wp-content/fundsiteliterature/csv/ARK_NEXT_GENERATION_INTERNET_ETF_ARKW_HOLDINGS.csv";
+    private static final String ARKQ_URL  =
+            "https://ark-funds.com/wp-content/fundsiteliterature/csv/ARK_AUTONOMOUS_TECHNOLOGY_&_ROBOTICS_ETF_ARKQ_HOLDINGS.csv";
+    private static final String ARKG_URL =
+            "https://ark-funds.com/wp-content/fundsiteliterature/csv/ARK_GENOMIC_REVOLUTION_MULTISECTOR_ETF_ARKG_HOLDINGS.csv";
+    private static final String ARKF_URL =
+            "https://ark-funds.com/wp-content/fundsiteliterature/csv/ARK_FINTECH_INNOVATION_ETF_ARKF_HOLDINGS.csv";
+    private static final String PRNT=
+            "https://ark-funds.com/wp-content/fundsiteliterature/csv/THE_3D_PRINTING_ETF_PRNT_HOLDINGS.csv";
+    private static final String IZRL =
+            "https://ark-funds.com/wp-content/fundsiteliterature/csv/ARK_ISRAEL_INNOVATIVE_TECHNOLOGY_ETF_IZRL_HOLDINGS.csv";
+    private static final List<String> urls = Lists.newArrayList(ARKK_URL,ARKW_URL,ARKQ_URL,ARKG_URL,ARKF_URL,PRNT,IZRL);
 
     @Autowired
     private ArkInvestRecordService arkInvestRecordService;
@@ -42,10 +56,16 @@ public class ArkManager {
      *  每周二，三，四，五，六的10:15分运行
      */
     @Scheduled(cron = "0 15 10 ? * TUE-SAT")
-    public  void dailyCreateArkInvestRecord(){
-        InputStream inputStream = HttpUtil.geInputStream(arkkUrl);
+    public void dailyCreateArkInvestRecord(){
+       for (String url : urls){
+           downloadFile(url);
+       }
+    }
+
+    public  void downloadFile(String url){
+        InputStream inputStream = HttpUtil.geInputStream(url);
         if (inputStream == null){
-            LogUtil.error(LOGGER,"数据下载失败");
+            LogUtil.error(LOGGER,"数据下载失败in downloadFile",url);
             return;
         }
         BufferedReader reader = new BufferedReader(
