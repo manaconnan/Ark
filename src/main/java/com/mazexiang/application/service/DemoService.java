@@ -1,7 +1,7 @@
-package com.example.demo.service;
+package com.mazexiang.application.service;
 
-import com.example.demo.mapper.DemoMapper;
-import com.example.demo.model.DemoModel;
+import com.mazexiang.application.mapper.DemoMapper;
+import com.mazexiang.application.model.DemoModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

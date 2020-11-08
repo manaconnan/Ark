@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.mazexiang.application.model;
 
 public class DemoModel {
     private Integer id;

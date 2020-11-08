@@ -1,7 +1,7 @@
-package com.example.demo;
+package com.mazexiang.application;
 
-import com.example.demo.model.DemoModel;
-import com.example.demo.service.DemoService;
+import com.mazexiang.application.model.DemoModel;
+import com.mazexiang.application.service.DemoService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,6 +1,6 @@
-package com.example.demo.mapper;
+package com.mazexiang.application.mapper;
 
-import com.example.demo.model.DemoModel;
+import com.mazexiang.application.model.DemoModel;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 

@@ -1,11 +1,10 @@
-package com.example.demo.controller;
+package com.mazexiang.application.controller;
 
-import com.example.demo.model.DemoModel;
-import com.example.demo.service.DemoService;
+import com.mazexiang.application.model.DemoModel;
+import com.mazexiang.application.service.DemoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
