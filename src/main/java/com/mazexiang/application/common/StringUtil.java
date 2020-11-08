@@ -10,7 +10,7 @@ package com.mazexiang.application.common;
  */
 public class StringUtil {
     public static boolean isEmpty(String str){
-        return str == null || str == "";
+        return str == null || str == ""||str.trim().length()==0;
     }
 
     public static boolean equals(String str1,String str2){

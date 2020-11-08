@@ -75,7 +75,6 @@ public class ArkManager {
             BufferedReader reader = new BufferedReader(
                     new InputStreamReader(inputStream));
             String str = null;
-
             // 提前读掉第一行
             reader.readLine();
             str =  reader.readLine();
@@ -86,36 +85,32 @@ public class ArkManager {
                 LogUtil.info(LOGGER,split2Line[1],split2Line[0],"当前的文件信息已经是最新的");
                 return;
             }
-            while (true) {
-                if (!StringUtil.isEmpty(str)) {
-                    String[] split = str.split(",");
-                    if (split.length!=8){
-                        continue;
-                    }
-                    LogUtil.info(LOGGER,str);
-                    ArkInvestRecordDO recordDO = new ArkInvestRecordDO();
-                    recordDO.setGmtCreated(SimpleDateFormat.getDateInstance().format(new Date()));
-                    recordDO.setDate(split[0]);
-                    recordDO.setFund(split[1]);
-                    recordDO.setCompany(split[2]);
-                    recordDO.setTicker(split[3]);
-                    recordDO.setCusip(split[4]);
-                    recordDO.setShares(Double.valueOf(split[5]).intValue());
-                    recordDO.setMarketValue(Double.valueOf(split[6]));
-                    recordDO.setWeight(Double.valueOf(split[7]));
-                    arkInvestRecordService.insert(recordDO);
-                    ArkStockDO arkStockDO = arkStockService.queryByTicker(split[3]);
-                    if (arkStockDO == null || arkStockDO.getId() == 0 ) {
-                        arkStockDO = new ArkStockDO();
-                        arkStockDO.setGmtCreated(SimpleDateFormat.getDateInstance().format(new Date()));
-                        arkStockDO.setTicker(split[3]);
-                        arkStockService.insert(arkStockDO);
-                    }
-                    str = reader.readLine();
-
-                }else {
-                    break;
+            while (!StringUtil.isEmpty(str)) {
+                String[] split = str.split(",");
+                if (split.length!=8){
+                    continue;
                 }
+                LogUtil.info(LOGGER,str);
+                ArkInvestRecordDO recordDO = new ArkInvestRecordDO();
+                recordDO.setGmtCreated(SimpleDateFormat.getDateInstance().format(new Date()));
+                recordDO.setDate(split[0]);
+                recordDO.setFund(split[1]);
+                recordDO.setCompany(split[2]);
+                recordDO.setTicker(split[3]);
+                recordDO.setCusip(split[4]);
+                recordDO.setShares(Double.valueOf(split[5]).intValue());
+                recordDO.setMarketValue(Double.valueOf(split[6]));
+                recordDO.setWeight(Double.valueOf(split[7]));
+                arkInvestRecordService.insert(recordDO);
+                ArkStockDO arkStockDO = arkStockService.queryByTicker(split[3]);
+                if (arkStockDO == null || arkStockDO.getId() == 0 ) {
+                    arkStockDO = new ArkStockDO();
+                    arkStockDO.setGmtCreated(SimpleDateFormat.getDateInstance().format(new Date()));
+                    arkStockDO.setTicker(split[3]);
+                    arkStockService.insert(arkStockDO);
+                }
+                str = reader.readLine();
+                LogUtil.info(LOGGER,"str = ",str);
             }
             inputStream.close();
         }catch (Exception e   ){
