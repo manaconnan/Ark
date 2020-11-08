@@ -24,6 +24,7 @@ import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author mazexiang
@@ -58,6 +59,7 @@ public class ArkManager {
     @Scheduled(cron = "0 15 10 ? * TUE-SAT")
     public void dailyCreateArkInvestRecord(){
        for (String url : urls){
+           LogUtil.info(LOGGER,"start download ",url);
            downloadFile(url);
        }
     }
@@ -124,6 +126,10 @@ public class ArkManager {
         return arkInvestRecordService.queryByTicker(ticker);
     }
 
+    public Map<String, List< ArkInvestRecordDO>> queryByFundInDays(String fund,int days){
+        return null;
+    }
+
     public List<ArkStockDO> stockList(){
 
         return arkStockService.queryAll();
@@ -138,6 +144,7 @@ public class ArkManager {
         return arkStockService.queryByDate(date);
 
     }
+
 
 
 }
